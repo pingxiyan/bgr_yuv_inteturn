@@ -11,7 +11,7 @@ void error_tip() {
 }
 
 int mat2nv12(int argc, char** argv) {
-    if(argc != 3 || argc != 5) {
+    if(argc != 3 && argc != 5) {
         error_tip();
         return EXIT_FAILURE;
     }
@@ -30,7 +30,7 @@ int mat2nv12(int argc, char** argv) {
         nv12_h = std::atoi(argv[4]);
     }
 
-    std::string out_fn = std::string("out_") + std::to_string(nv12_w) + "_" + std::to_string(nv12_h) + ".dat";
+    std::string out_fn = std::string("out_nv12_") + std::to_string(nv12_w) + "_" + std::to_string(nv12_h) + ".dat";
     std::cout << "Result nv12 name = " << out_fn << std::endl;
 
     cv::Mat dst;
@@ -95,11 +95,12 @@ int main(int argc, char** argv) {
             return mat2nv12(argc, argv);
         }
         if(argv[1] == std::string("nv122mat")) {
-            return mat2nv12(argc, argv);
+            return nv122mat(argc, argv);
         }
     }
     else {
-
+        error_tip();
+        return EXIT_SUCCESS;
     }
 
     return EXIT_SUCCESS;
